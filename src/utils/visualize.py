@@ -1,7 +1,9 @@
+from pathlib import Path
+
 import numpy as np
 import matplotlib.pyplot as plt
-
-from pathlib import Path
+import seaborn as sns
+sns.set()
 
 
 def mean_output_dynamics(results, ntk_results):
@@ -109,7 +111,6 @@ def visualize(cfg, results, ntk_results, train_labels, test_labels, class_num):
         ax[i].tick_params(labelsize=15)
         ax[i].set_xscale('log')
         ax[i].set_xticks(x_ticks)
-        ax[i].grid(linestyle='dashed')
         
     plt.tight_layout()
     

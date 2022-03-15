@@ -1,5 +1,6 @@
 matplotlib
 numpy
 omegaconf
+seaborn
 scikit-learn
 tqdm

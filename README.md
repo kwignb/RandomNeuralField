@@ -1,1 +1,1 @@
-# RandomNeuralField
+# Random Neural Field

@@ -1,6 +1,14 @@
-# Random Neural Field
+# Random Neural Fields
 - [Deep Learning in Random Neural Fields: Numerical Experiments via Neural Tangent Kernel](https://arxiv.org/abs/2202.05254)
 - Implementation of PyTorch
+
+## Library
+- PyTorch 1.10.2
+- torchvision 0.11.3
+- others can be installed with the following:
+```
+pip install -r requirements.txt
+```
 
 ## Config
 ```
@@ -27,4 +35,14 @@ GENERAL:
   EPOCH: 1000           # power of 10
   GPUS: [1]
   NOTEBOOK: true        # if you use script, switch false
+```
+
+## Citation
+```
+@article{watanabe2022deep,
+  title={Deep Learning in Random Neural Fields: Numerical Experiments via Neural Tangent Kernel},
+  author={Watanabe, Kaito and Sakamoto, Kotaro and Karakida, Ryo and Sonoda, Sho and Amari, Shun-ichi},
+  journal={arXiv preprint arXiv:2202.05254},
+  year={2022}
+}
 ```

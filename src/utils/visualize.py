@@ -68,7 +68,7 @@ def visualize(cfg, results, ntk_results, train_labels, test_labels, class_num):
         )
     
     fig, ax = plt.subplots(1, 4, figsize=(16, 4))
-    x_ticks = np.power(10, np.arange(0, int(np.log10(n_epoch)), 1).tolist())
+    x_ticks = np.power(10, np.arange(0, int(np.log10(n_epoch))+1, 1).tolist())
     
     for i in range(4):
         

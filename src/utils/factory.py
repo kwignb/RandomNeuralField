@@ -5,6 +5,8 @@ from omegaconf import OmegaConf
 import numpy as np
 import matplotlib.pyplot as plt
 
+import torch
+
 
 def read_yaml(fpath='config/config.yaml'):
     config = OmegaConf.load(fpath)
@@ -29,3 +31,11 @@ def calc_loss_NTK(outputs, labels):
     loss = (np.linalg.norm(outputs - labels)**2) / (2 * length)
     
     return loss
+
+
+def calc_diff_frob(ntk_0, ntk_t):
+    
+    ntk_diff = np.linalg.norm(ntk_t - ntk_0, ord='fro')
+    ntk_norm = np.linalg.norm(ntk_0, ord='fro')
+    
+    return ntk_diff / ntk_norm

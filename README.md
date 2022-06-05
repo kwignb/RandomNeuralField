@@ -11,6 +11,7 @@ pip install -r requirements.txt
 ```
 
 ## Config
+- ```src/config/config.yaml```
 ```
 DATA:
   NAME: mnist           # Now: mnist or fashion

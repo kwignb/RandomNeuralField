@@ -48,12 +48,12 @@ class Initializers(nn.Module):
                 np.exp(
                     - sym_mat(
                         in_features
-                        ) / (2*(in_features*self.r_sigma)**2)
+                        ) / (in_features*self.r_sigma)**2
                     )
                 )
-        weight_correlated = weight_correlation(in_features,
-                                               out_features,
-                                               self.s_sigma)
+        weight_correlated = weight_correlation(
+            in_features, out_features, self.s_sigma
+            )
         init_weight = R * weight_correlated
         
         return Tensor(init_weight)
@@ -67,11 +67,11 @@ class Initializers(nn.Module):
         elif in_features == out_features:
             mh = sym_mat(in_features) / self.m_sigma**2
             
-        M = coef * (np.ones((out_features, in_features)) - mh) * np.exp( - mh / 2)
+        M = coef * (np.ones((out_features, in_features)) - mh) * np.sqrt(np.exp(-mh))
         
-        weight_correlated = weight_correlation(in_features, 
-                                               out_features,
-                                               self.s_sigma)
+        weight_correlated = weight_correlation(
+            in_features, out_features, self.s_sigma
+            )
         init_weight = M * weight_correlated
         
         return Tensor(init_weight)
@@ -79,18 +79,25 @@ class Initializers(nn.Module):
     def get_matern_type(self, in_features, out_features):
         
         if in_features != out_features:
-            R = np.sqrt(np.exp(-receptive_mat(
-                in_features, out_features, self.r_sigma
-                )))
+            R = np.sqrt(
+                np.exp(
+                    - receptive_mat(in_features, 
+                                    out_features,
+                                    self.r_sigma)
+                    )
+                )
         elif in_features == out_features:
-            R = np.sqrt(np.exp(-sym_mat(
-                in_features
-                ) / (2 * (in_features * self.r_sigma)**2)))
+            R = np.sqrt(
+                np.exp(
+                    -sym_mat(
+                        in_features
+                        ) / (in_features * self.r_sigma)**2
+                    )
+                )
             
-        init_mk = matern_kernel(in_features, 
-                                out_features,
-                                self.theta,
-                                self.nu)
+        init_mk = matern_kernel(
+            in_features, out_features, self.theta, self.nu
+            )
         init_weight = R * init_mk
         
         return Tensor(init_weight)

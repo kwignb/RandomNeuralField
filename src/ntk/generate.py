@@ -42,7 +42,7 @@ def generate_ntk(net, label, train, test, cfg, calc_lr=False):
         NTK_train = np.kron(K_train, np.eye(cfg.DATA.CLASS))
         vals = np.linalg.eigvalsh(NTK_train)
         lr = 2 / (max(vals) + 1e-12)
-        return lr
+        return NTK_train, lr
     else:
         f_test = net(test)
         K_test = torch.zeros((len(f_test), len(f_train)))

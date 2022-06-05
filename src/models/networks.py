@@ -78,31 +78,32 @@ class Networks(nn.Module):
         super(Networks, self).__init__()
         
         self.init_type = cfg.INITIALIZER.TYPE
+        self.mid_features = cfg.MODEL.MID_FEATURES
         
         in_features = cfg.MODEL.INPUT_FEATURES
-        mid_features = cfg.MODEL.MID_FEATURES
         out_features = cfg.DATA.CLASS
         b_sig = cfg.MODEL.B_SIGMA
         
-        init_weight = Initializers(cfg).get_initializer(in_features, mid_features)
+        init_weight = Initializers(cfg).get_initializer(in_features, self.mid_features)
         
-        self.l1 = LinearNTK(in_features, mid_features, b_sig)
+        self.l1 = LinearNTK(in_features, self.mid_features, b_sig)
         self.l1.weight.data = init_weight
         
         if self.init_type == 'withmp':
             self.l2 = nn.MaxPool1d(kernel_size=3, stride=1, padding=1)
         else:
-            self.l2 = LinearNTK(mid_features, mid_features, b_sig)
+            self.l2 = LinearNTK(self.mid_features, self.mid_features, b_sig)
         
-        self.l3 = LinearNTK(mid_features, out_features, b_sig)
+        self.l3 = LinearNTK(self.mid_features, out_features, b_sig)
     
     def forward(self, x):
         
-        x = F.relu(self.l1(x))
+        h1 = F.relu(self.l1(x))
         if self.init_type == 'withmp':
-            x = self.l2(x.view(1, -1, x.size()[-1]))
+            h2 = self.l2(h1.view(1, -1, self.mid_features))
+            h3 = self.l3(h2).squeeze()
         else:
-            x = F.relu(self.l2(x))
-        x = self.l3(x)
-        
-        return x
+            h2 = F.relu(self.l2(h1))
+            h3 = self.l3(h2)
+            
+        return h3

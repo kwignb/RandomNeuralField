@@ -26,15 +26,13 @@ def receptive_mat(in_features, out_features, sigma):
     if in_features < out_features:
         for i in range(in_features):
             H.append(vec_out * (i+1))
-        H = np.array(H).reshape(
-            in_features, out_features
-            ).T / (in_features*out_features)
     elif in_features > out_features:
         for i in range(out_features):
             H.append(vec_in * (i+1))
-        H = np.array(H).reshape(
-            in_features, out_features
-            ).T / (in_features*out_features)
+    
+    H = np.array(H).reshape(
+        in_features, out_features
+        ).T / (in_features * out_features)
         
     return (X - 2*H + Y) / sigma**2
 

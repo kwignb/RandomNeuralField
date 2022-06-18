@@ -29,11 +29,10 @@ INITIALIZER:
   R_SIGMA: 0.1          # for receptive field
   S_SIGMA: 0.1          # for correlation
   M_SIGMA: 0.1          # for mexican hat
-  M_THETA: 1.0          # for matern kernel
-  M_NU: 1.0             # for matern kernel
+  NU: 0.5               # for matern kernel
 
 GENERAL:
-  EPOCH: 1000           # power of 10
+  EPOCH: 1000           
   GPUS: [1]
   NOTEBOOK: true        # if you use script, switch false
 ```

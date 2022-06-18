@@ -17,7 +17,7 @@ class Initializers(nn.Module):
         self.r_sigma = cfg.INITIALIZER.R_SIGMA
         self.s_sigma = cfg.INITIALIZER.S_SIGMA
         self.m_sigma = cfg.INITIALIZER.M_SIGMA
-        self.nu = cfg.INITIALIZER.M_NU
+        self.nu = cfg.INITIALIZER.NU
         
     def get_initializer(self, in_features, out_features):
         

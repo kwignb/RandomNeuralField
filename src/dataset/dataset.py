@@ -56,7 +56,7 @@ class MakeDataset:
         train_id, test_id = train_test_split(
             np.arange(self.data_num),
             test_size=self.test_ratio,
-            random_state=57
+            random_state=47
         )
         
         X_train, X_test = X[train_id], X[test_id]

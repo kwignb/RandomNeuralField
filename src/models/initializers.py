@@ -17,7 +17,6 @@ class Initializers(nn.Module):
         self.r_sigma = cfg.INITIALIZER.R_SIGMA
         self.s_sigma = cfg.INITIALIZER.S_SIGMA
         self.m_sigma = cfg.INITIALIZER.M_SIGMA
-        self.theta = cfg.INITIALIZER.M_THETA
         self.nu = cfg.INITIALIZER.M_NU
         
     def get_initializer(self, in_features, out_features):
@@ -89,14 +88,14 @@ class Initializers(nn.Module):
         elif in_features == out_features:
             R = np.sqrt(
                 np.exp(
-                    -sym_mat(
+                    - sym_mat(
                         in_features
-                        ) / (in_features * self.r_sigma)**2
+                        ) / (2 * (in_features * self.r_sigma)**2)
                     )
                 )
             
         init_mk = matern_kernel(
-            in_features, out_features, self.theta, self.nu
+            in_features, out_features, self.s_sigma, self.nu
             )
         init_weight = R * init_mk
         

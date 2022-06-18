@@ -55,6 +55,8 @@ class VanillaNet(nn.Module):
     def __init__(self, cfg):
         super(VanillaNet, self).__init__()
         
+        self.visualize = cfg.MODEL.VISUALIZE
+        
         in_features = cfg.MODEL.INPUT_FEATURES
         mid_features = cfg.MODEL.MID_FEATURES
         out_features = cfg.DATA.CLASS
@@ -66,11 +68,13 @@ class VanillaNet(nn.Module):
         
     def forward(self, x):
         
-        x = F.relu(self.l1(x))
-        x = F.relu(self.l2(x))
-        x = self.l3(x)
-        
-        return x
+        if self.visualize:
+            return self.l1(x)
+        else:        
+            h1 = F.relu(self.l1(x))
+            h2 = F.relu(self.l2(h1))
+            h3 = self.l3(h2)
+            return h3
     
     
 class Networks(nn.Module):
@@ -79,6 +83,7 @@ class Networks(nn.Module):
         
         self.init_type = cfg.INITIALIZER.TYPE
         self.mid_features = cfg.MODEL.MID_FEATURES
+        self.visualize = cfg.MODEL.VISUALIZE
         
         in_features = cfg.MODEL.INPUT_FEATURES
         out_features = cfg.DATA.CLASS
@@ -98,12 +103,14 @@ class Networks(nn.Module):
     
     def forward(self, x):
         
-        h1 = F.relu(self.l1(x))
-        if self.init_type == 'withmp':
-            h2 = self.l2(h1.view(1, -1, self.mid_features))
-            h3 = self.l3(h2).squeeze()
+        if self.visualize:
+            return self.l1(x)
         else:
-            h2 = F.relu(self.l2(h1))
-            h3 = self.l3(h2)
-            
-        return h3
+            h1 = F.relu(self.l1(x))
+            if self.init_type == 'withmp':
+                h2 = self.l2(h1.view(1, -1, self.mid_features))
+                h3 = self.l3(h2).squeeze()
+            else:
+                h2 = F.relu(self.l2(h1))
+                h3 = self.l3(h2)
+            return h3

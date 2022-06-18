@@ -33,7 +33,7 @@ def receptive_mat(in_features, out_features, sigma):
     H = np.array(H).reshape(
         in_features, out_features
         ).T / (in_features * out_features)
-        
+    
     return (X - 2*H + Y) / sigma**2
 
 
@@ -60,6 +60,6 @@ def matern_kernel(in_features, out_features, theta, nu):
     kernel_mat = Kernel(grids, grids)
     
     gen = multivariate_normal(cov=kernel_mat)
-    mk_init = gen.rvs(size=out_features, random_state=57)
+    mk_init = gen.rvs(size=out_features, random_state=47)
     
     return mk_init

@@ -108,8 +108,8 @@ class Networks(nn.Module):
         else:
             h1 = F.relu(self.l1(x))
             if self.init_type == 'withmp':
-                h2 = self.l2(h1.view(1, -1, self.mid_features))
-                h3 = self.l3(h2).squeeze()
+                h2 = self.l2(h1)
+                h3 = self.l3(h2)
             else:
                 h2 = F.relu(self.l2(h1))
                 h3 = self.l3(h2)

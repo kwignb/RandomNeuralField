@@ -1,6 +1,6 @@
 import sys
 from os.path import join, dirname
-from tqdm import tqdm
+from tqdm.auto import tqdm
 
 import numpy as np
 import scipy as sp

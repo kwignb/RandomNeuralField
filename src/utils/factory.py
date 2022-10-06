@@ -3,9 +3,6 @@ import os
 from omegaconf import OmegaConf
 
 import numpy as np
-import matplotlib.pyplot as plt
-
-import torch
 
 
 def read_yaml(fpath='config/config.yaml'):

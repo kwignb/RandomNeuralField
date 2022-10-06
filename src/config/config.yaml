@@ -20,5 +20,5 @@ INITIALIZER:
 
 GENERAL:
   EPOCH: 1000
-  GPUS: [1]
+  GPUS: [0]
   NOTEBOOK: true        # if you use script, switch false

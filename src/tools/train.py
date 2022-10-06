@@ -6,7 +6,6 @@ import torch.nn as nn
 from torch import optim
 
 sys.path.append(join(dirname(__file__), "../.."))
-from src.ntk.generate import generate_ntk
 from src.utils.factory import calc_acc
 
 
@@ -22,9 +21,11 @@ def train(cfg, net, lr, database):
     
     train_loader, test_loader = database.get_loader()
     
-    results = {'train_losses': [], 'test_losses': [],
-               'train_accs': [], 'test_accs': [],
-               'train_outputs': [], 'test_outputs': []}
+    results = {
+        'train_losses': [], 'test_losses': [],
+        'train_accs': [], 'test_accs': [],
+        'train_outputs': [], 'test_outputs': []
+        }
     
     for epoch in range(n_epochs):
 

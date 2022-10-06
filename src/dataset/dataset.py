@@ -26,11 +26,11 @@ class MakeDataset:
         
         if self.dataset_name == 'mnist':
             dataset = datasets.MNIST(
-                root='./data', train=True, download=True, transform=transform
+                root='../data', train=True, download=True, transform=transform
                 )
         elif self.dataset_name == 'fashion':
             dataset = datasets.FashionMNIST(
-                root='./data', train=True, download=True, transform=transform
+                root='../data', train=True, download=True, transform=transform
                 )
         else:
             NotImplementedError
@@ -43,7 +43,7 @@ class MakeDataset:
         
         X, y = [], []
         for i, (img, label) in enumerate(self.dataloader):
-            label_list = [-0.1 for i in range(self.n_class)]
+            label_list = [-0.1 for _ in range(self.n_class)]
             img = img.numpy()
             label_list[label] = 0.9
             X.append(img / np.linalg.norm(img))
